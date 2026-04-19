@@ -27,11 +27,20 @@ const Sidebar = () => {
 
   return (
     <aside
-      className={`flex flex-col h-screen transition-all duration-300 ${
-        isOpen ? "w-60" : "w-17"
-      } ${isOpen ? "px-3" : "px-0"}` }
+      className={`
+        /* 1. Mobile Styles (Default) */
+        fixed inset-y-0 left-0 z-50 bg-base-100 shadow-xl
+        transition-transform duration-300 ease-in-out
+        ${isOpen ? "translate-x-0" : "-translate-x-full"}
+        w-64
+
+        /* 2. Desktop Styles (md and up) */
+        md:relative md:translate-x-0 
+        ${isOpen ? "md:w-60" : "md:w-17"} 
+        flex flex-col h-full border-r border-base-300
+      `}
     >
-      <nav className="flex flex-col gap-1 mt-2">
+      <nav className="flex flex-col gap-1 mt-2 px-2">
         {NAV_ITEMS.map(({ id, label, icon: Icon, path }) => (
           <NavLink
             key={id}
@@ -39,9 +48,8 @@ const Sidebar = () => {
             className={({ isActive }) => getNavLinkClass(isActive)}
           >
             <Icon size={23} className="shrink-0" />
-
             <span
-              className={`whitespace-nowrap ${isOpen ? "text-sm" : "text-[10px]"}`}
+              className={`whitespace-nowrap ${isOpen ? "text-sm" : "md:text-[10px]"}`}
             >
               {label}
             </span>

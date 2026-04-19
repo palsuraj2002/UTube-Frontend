@@ -2,21 +2,27 @@ import React from "react";
 import Appbar from "../components/ui/Appbar";
 import Sidebar from "../components/ui/Sidebar";
 import { Outlet } from "react-router-dom";
+import { useSidebar } from "../contextAPI/SidebarContext";
 
 const UserLayout = () => {
+  const { isOpen, setIsOpen } = useSidebar(); // Ensure your context has a setter
+
   return (
-    /* h-screen prevents the whole page from scrolling, allowing internal sections to scroll */
-    <div className="flex flex-col h-screen overflow-hidden">
-      {/* 1. Appbar stays at the top */}
+    <div className="flex flex-col h-screen overflow-hidden relative">
       <Appbar />
 
       <div className="flex flex-1 overflow-hidden">
-        {/* 2. Sidebar - Should have h-full and overflow-y-auto internally if it's long */}
+        {/* Mobile Backdrop: Closes sidebar when clicking outside */}
+        {isOpen && (
+          <div
+            className="fixed inset-0 bg-black/50 z-40 md:hidden"
+            onClick={() => setIsOpen(false)}
+          />
+        )}
+
         <Sidebar />
 
-        {/* 3. Main Content Area */}
         <main className="flex-1 overflow-y-auto p-4 bg-base-100 custom-scrollbar">
-          {/* Outlet renders the page content (Video Grid, Shorts, etc.) */}
           <div className="max-w-600 mx-auto">
             <Outlet />
           </div>
