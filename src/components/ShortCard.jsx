@@ -1,22 +1,22 @@
 import React from "react";
-import { EllipsisVertical, BadgeCheck, Dot } from "lucide-react";
+import { EllipsisVertical } from "lucide-react";
 
-const Card = ({video_img, video_timing, channel_img, video_title,channel_name, video_view_count, video_upload_date }) => {
+const ShortCard = ({short_thumbnail, short_timing, short_title, view_count }) => {
   return (
     <>
       {/* We use 'border-transparent' as a base so the border doesn't "jump" when it appears on hover */}
       <div className="card card-compact w-auto cursor-pointer group rounded-2xl border border-transparent hover:border-base-300 hover:bg-amber-50/5 transition-all duration-300 flex-1 p-1.5">
         {/* Thumbnail part */}
-        <figure className="relative aspect-video overflow-hidden rounded-xl mx-1 mt-1">
+        <figure className="relative aspect-9/16 overflow-hidden rounded-xl mx-1 mt-1">
           <img
-            src={video_img}
+            src={short_thumbnail}
             alt="Video Thumbnail"
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
 
           {/* Duration Badge using DaisyUI Badge component */}
           <div className="absolute bottom-2 right-2 badge badge-neutral bg-black/80 border-none text-[11px] font-medium py-1 h-auto">
-          {video_timing}
+            {short_timing}
           </div>
 
           {/* Optional: Hover play overlay */}
@@ -27,38 +27,17 @@ const Card = ({video_img, video_timing, channel_img, video_title,channel_name, v
 
         {/* Card Content Part */}
         <div className="card-body flex-row gap-3 p-0 mt-3">
-          {/* User Avatar section */}
-          <div className="shrink-0">
-            <div className="avatar">
-              <div className="w-9 h-9 rounded-full ring-primary ring-offset-base-100 ring-offset-1 hover:ring-2 transition-all">
-                <img
-                  src={channel_img}
-                  alt="Channel"
-                />
-              </div>
-            </div>
-          </div>
 
           {/* Video details section */}
           <div className="flex flex-col flex-1 overflow-hidden">
             <h3 className="text-sm font-bold leading-5 line-clamp-2 mb-1 text-base-content">
-            {video_title}
+             {short_title}
             </h3>
 
             <div className="flex flex-col text-[13px] text-base-content/70">
-              <div className="flex items-center gap-1 hover:text-base-content transition-colors w-fit">
-                <span>{channel_name}</span>
-                <div className="tooltip tooltip-right" data-tip="Verified">
-                  <BadgeCheck size={14} className="text-info fill-info/20" />
-                </div>
-              </div>
 
               <div className="flex items-center gap-1">
-                <span>{video_view_count} views</span>
-                <span className="text-lg leading-none">
-                  <Dot size={15} />
-                </span>
-                <span>{video_upload_date} ago</span>
+                <span>{view_count} views</span>
               </div>
             </div>
           </div>
@@ -75,4 +54,4 @@ const Card = ({video_img, video_timing, channel_img, video_title,channel_name, v
   );
 };
 
-export default Card;
+export default ShortCard;
